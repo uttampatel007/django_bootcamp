@@ -1,0 +1,36 @@
+django-admin startproject blog_project
+
+
+blog_project
+    blog_project
+        __init__.py
+        asgi.py
+        settings.py
+        urls.py
+        wsgi.py     
+?≥,mnb vfcdx
+
+python manage.py startapp <app_name>
+
+python manage.py runserver 
+
+
+Instagram -> uttam
+    login -> uttam -> posts -> friends -> others
+
+
+Database:
+    Store, Retrieve, Update, Delete
+
+    Postgres, MySql    
+
+
+python manage.py migrate 
+
+python manage.py createsuperuser
+
+
+create first view
+register first view
+
+

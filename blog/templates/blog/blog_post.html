@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .heading {
+            color: rebeccapurple;
+            background-color: aqua;
+            padding: 30px;
+        }
+        .content {
+            background-color: bisque;
+            padding: 30px;
+        }
+        .author {
+            background-color: black;
+            color: white;
+            padding: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="heading">
+        Title: {{blog_post.title1}}
+    </div>
+    <div class="content">
+        Description: {{blog_post.description}}
+    </div>
+    <div class="author">
+        Author: {{blog_post.slug}}
+    </div>
+</body>
+</html>

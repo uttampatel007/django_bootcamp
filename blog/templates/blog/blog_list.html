@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .container p {
+            color: rebeccapurple;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to our website blogs!!</h1>
+        <h4>{{project_name}}</h4>
+        <a href="/">Home</a>
+
+        {% for blog in all_blog %}
+
+        <a href="{% url 'blog:blog_post' blog.slug %}"><p>{{blog.title1}}</p></a>
+        <small>{{blog.description}}</small>
+
+        {% endfor %}
+
+    </div>
+</body>
+</html>

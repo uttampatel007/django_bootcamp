@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            color: rebeccapurple;
+            font-size: larger;
+        }
+    </style>
+</head>
+<body>
+    <h1>This is our website!!</h1>
+    <a href="{% url 'blog:blog_list' %}">Blog</a>
+    <a href="{% url 'blog:example_route' %}">Example Page</a>
+    <div class="container">
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, tempora accusamus, praesentium voluptate dolores fugit repudiandae hic repellat non sed id sequi consectetur esse, accusantium quia. Ipsam temporibus minima quod!
+        </p>
+        <h6>Hello</h6>
+    </div>
+</body>
+</html>
