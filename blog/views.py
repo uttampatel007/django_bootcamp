@@ -1,52 +1,59 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from blog.models import Post
+from blog.forms import PostModelForm
 
 
 def homepage(request):
     """Homepage view"""
     return render(request, 'blog/homepage.html')
 
-blogs = [
-        {
-            "title1": "This is blog one title",
-            "description": "lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf", 
-            "id": 1,
-            "slug": "title-1",
-        },
-        {
-            "title1": "This is blog two title",
-            "description": "two lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf", 
-            "id":2,
-            "slug": "title-2"
-        },
-        {
-            "title1": "This is blog three title",
-            "description": "three lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf",
-            "id":3,
-            "slug": "title-3-anything"
-        },
-        {
-            "title1": "This is blog four title",
-            "description": "four lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf",
-            "id":4,
-            "slug": "title-4-anything"
-        }
-    ]
+# blogs = [
+#         {
+#             "title1": "This is blog one title",
+#             "description": "lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf", 
+#             "id": 1,
+#             "slug": "title-1",
+#         },
+#         {
+#             "title1": "This is blog two title",
+#             "description": "two lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf", 
+#             "id":2,
+#             "slug": "title-2"
+#         },
+#         {
+#             "title1": "This is blog three title",
+#             "description": "three lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf",
+#             "id":3,
+#             "slug": "title-3-anything"
+#         },
+#         {
+#             "title1": "This is blog four title",
+#             "description": "four lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf",
+#             "id":4,
+#             "slug": "title-4-anything"
+#         }
+#     ]
 
 def blog(request):
     """blog listing view"""
+
+    blogs = Post.objects.all()
+
     context = {
         'all_blog':blogs,
         'project_name': "This is Google.com"
     }
     return render(request, 'blog/blog_list.html', context)
 
-def blog_post(request, slug):
+def blog_post(request, id):
     
-    blog_post = [blog for blog in blogs if blog['slug'] == slug]
+    # blog_post = [blog for blog in blogs if blog['slug'] == slug]
+
+    blog_post = Post.objects.get(id=id)
     
     context = {
-        'blog_post': blog_post[0]
+        'blog_post': blog_post
     }
 
     return render(request, 'blog/blog_post.html', context)
@@ -64,3 +71,24 @@ def example_route(request):
 
 def authors(request):
     return render(request, 'blog/authors.html')
+
+
+
+def blog_post_create(request):
+    
+    if request.method == 'POST':
+        form = PostModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+        
+        return redirect('blog:blog_list')
+
+    form = PostModelForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'blog/blog_create.html', context)
+
+
+
+# -> url -> view -> data from db -> using context send data to template -> render that data

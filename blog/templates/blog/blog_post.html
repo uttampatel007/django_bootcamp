@@ -25,13 +25,16 @@
 </head>
 <body>
     <div class="heading">
-        Title: {{blog_post.title1}}
+        {{blog_post.id}} <br>
+        Title: {{blog_post.title}}
     </div>
     <div class="content">
-        Description: {{blog_post.description}}
+        Description: {{blog_post.body}}
     </div>
     <div class="author">
-        Author: {{blog_post.slug}}
+        Author: {{blog_post.author.id   }}<br>
+        {{blog_post.author.name}}<br>
+        {{blog_post.author.email}}
     </div>
 </body>
 </html>

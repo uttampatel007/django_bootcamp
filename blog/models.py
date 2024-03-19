@@ -45,3 +45,19 @@ class Post(models.Model):
     
 
 # filter
+    
+
+
+# ORM -> object relational mapping
+
+
+# class Example:
+#     def __init__(self) -> None:
+#         self.name = "Hello"
+
+# exe = Example()
+# exe.name = "New Name"
+
+
+# post_1.title = "New Title"
+# post_1.save()

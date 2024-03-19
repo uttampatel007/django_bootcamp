@@ -17,11 +17,14 @@
         <h1>Welcome to our website blogs!!</h1>
         <h4>{{project_name}}</h4>
         <a href="/">Home</a>
+        <a href="{% url 'blog:blog_post_create' %}">Create Blog</a>
 
         {% for blog in all_blog %}
 
-        <a href="{% url 'blog:blog_post' blog.slug %}"><p>{{blog.title1}}</p></a>
-        <small>{{blog.description}}</small>
+        <a href="{% url 'blog:blog_post' blog.id %}">
+            <p>{{blog.title}}</p>
+        </a>
+        <small>{{blog.body}}</small>
 
         {% endfor %}
 
