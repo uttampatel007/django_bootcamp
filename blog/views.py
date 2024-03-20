@@ -8,32 +8,6 @@ def homepage(request):
     """Homepage view"""
     return render(request, 'blog/homepage.html')
 
-# blogs = [
-#         {
-#             "title1": "This is blog one title",
-#             "description": "lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf", 
-#             "id": 1,
-#             "slug": "title-1",
-#         },
-#         {
-#             "title1": "This is blog two title",
-#             "description": "two lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf", 
-#             "id":2,
-#             "slug": "title-2"
-#         },
-#         {
-#             "title1": "This is blog three title",
-#             "description": "three lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf",
-#             "id":3,
-#             "slug": "title-3-anything"
-#         },
-#         {
-#             "title1": "This is blog four title",
-#             "description": "four lorem ipsum dolor sit amet denfe enfefn enfenn fenfjen ejnf",
-#             "id":4,
-#             "slug": "title-4-anything"
-#         }
-#     ]
 
 def blog(request):
     """blog listing view"""
@@ -49,9 +23,11 @@ def blog(request):
 def blog_post(request, id):
     
     # blog_post = [blog for blog in blogs if blog['slug'] == slug]
+    try:
+        blog_post = Post.objects.get(id=id)
+    except Post.DoesNotExist:
+        return render(request, 'blog/404.html')
 
-    blog_post = Post.objects.get(id=id)
-    
     context = {
         'blog_post': blog_post
     }
@@ -73,7 +49,6 @@ def authors(request):
     return render(request, 'blog/authors.html')
 
 
-
 def blog_post_create(request):
     
     if request.method == 'POST':
@@ -81,13 +56,38 @@ def blog_post_create(request):
         if form.is_valid():
             form.save()
         
-        return redirect('blog:blog_list')
+            return redirect('blog:blog_list')
+        else:
+            # form.errors()
+            return HttpResponse('Invalid form')
 
     form = PostModelForm()
     context = {
         'form': form
     }
     return render(request, 'blog/blog_create.html', context)
+
+
+def blog_post_update(request, id):
+    instance = Post.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = PostModelForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+
+            return redirect('blog:blog_post', id=id)
+        else:
+            # form.errors()
+            return HttpResponse('Invalid form')
+
+    form = PostModelForm(instance=instance)
+
+    context = {
+        "form":form
+    }
+    return render(request, 'blog/blog_update.html', context)
+
 
 
 

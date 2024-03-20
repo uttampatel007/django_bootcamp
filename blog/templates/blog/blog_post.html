@@ -36,5 +36,9 @@
         {{blog_post.author.name}}<br>
         {{blog_post.author.email}}
     </div>
+
+    <a href="{% url 'blog:blog_post_update' id=blog_post.id %}">
+        <button>Update Blog</button>
+    </a>
 </body>
 </html>
