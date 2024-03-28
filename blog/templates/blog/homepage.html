@@ -15,6 +15,22 @@
     <h1>This is our website!!</h1>
     <a href="{% url 'blog:blog_list' %}">Blog</a>
     <a href="{% url 'blog:example_route' %}">Example Page</a>
+
+    {% if request.user.is_authenticated %}
+        <br>
+        {{request.user}} is logged in
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    {% else %}
+        <br>
+        <a href="{% url 'login' %}">Login</a>
+
+        <a href="{% url 'signup' %}">Sign Up</a>
+
+    {% endif %}
+
     <div class="container">
         <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, tempora accusamus, praesentium voluptate dolores fugit repudiandae hic repellat non sed id sequi consectetur esse, accusantium quia. Ipsam temporibus minima quod!

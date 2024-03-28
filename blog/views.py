@@ -2,13 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from blog.models import Post
 from blog.forms import PostModelForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 
 
 def homepage(request):
     """Homepage view"""
     return render(request, 'blog/homepage.html')
 
-
+@login_required
 def blog(request):
     """blog listing view"""
 
@@ -20,6 +22,7 @@ def blog(request):
     }
     return render(request, 'blog/blog_list.html', context)
 
+@login_required
 def blog_post(request, id):
     
     # blog_post = [blog for blog in blogs if blog['slug'] == slug]
@@ -89,6 +92,21 @@ def blog_post_update(request, id):
     return render(request, 'blog/blog_update.html', context)
 
 
+def signup(request):
+    """Signup view"""
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            return redirect('login')
+
+    form = UserCreationForm()
+    context = {
+        "form":form
+    }
+    return render(request, 'blog/signup.html', context)
 
 
 # -> url -> view -> data from db -> using context send data to template -> render that data
